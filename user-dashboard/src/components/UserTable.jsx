@@ -10,7 +10,6 @@ export default function UsersTable({ initialData }) {
   const [page, setPage] = useState(1);
   const pageSize = 5;
 
-  // 🔍 Filter
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return initialData;
@@ -22,7 +21,6 @@ export default function UsersTable({ initialData }) {
     );
   }, [initialData, query]);
 
-  // ↕ Sort
   const sorted = useMemo(() => {
     const arr = [...filtered];
     arr.sort((a, b) => {
@@ -50,7 +48,6 @@ export default function UsersTable({ initialData }) {
     return arr;
   }, [filtered, sortKey, sortDir]);
 
-  // 📄 Pagination
   const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
   const currentPage = Math.min(page, totalPages);
   const pageItems = sorted.slice(
@@ -74,7 +71,6 @@ export default function UsersTable({ initialData }) {
 
   return (
     <div>
-      {/* Search */}
       <div className="controls">
         <input
           placeholder="Search users..."
@@ -166,7 +162,6 @@ export default function UsersTable({ initialData }) {
         </tbody>
       </table>
 
-      {/* Pagination */}
       <Pagination page={currentPage} totalPages={totalPages} onPage={setPage} />
     </div>
   );
